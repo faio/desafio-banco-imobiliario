@@ -30,7 +30,7 @@ class Property(object):
         return self._price
 
     @price.setter
-    def price(self, value: Any) -> Exception:
+    def price(self, value: Any) -> ValueError:
         raise ValueError("Não se pode alterar o preço da propriedade")
 
     @property
@@ -38,7 +38,7 @@ class Property(object):
         return self._position
 
     @position.setter
-    def position(self, value: Any) -> Exception:
+    def position(self, value: Any) -> ValueError:
         raise ValueError("Não se pode alterar a posição da propriedade")
 
     @property
