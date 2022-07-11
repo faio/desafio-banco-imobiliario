@@ -44,7 +44,7 @@ class BasePlayer(metaclass=ABCMeta):
         else:
             raise ValueError("O saldo para atribuição precisa ser um valor númerico interio")
 
-    def add_property(self, property: Property) -> None:
+    def _add_property(self, property: Property) -> None:
         self.properties.append(property)
         property.owner = self
 
@@ -62,7 +62,7 @@ class BasePlayer(metaclass=ABCMeta):
         """
 
         # Jogadores só podem comprar propriedades caso ela não tenha dono e o jogador tenha o dinheiro da venda.
-        if property.available and self.balance < property.price:
+        if not self.is_can_buy(property):
             return
 
         # Verificando se o jogador quer comprar o imóvel
@@ -70,7 +70,7 @@ class BasePlayer(metaclass=ABCMeta):
             return
 
         self.balance -= property.price
-        self.add_property(property)
+        self._add_property(property)
         self.__loser = self.balance < 0
 
     def pay_rent(self, property: Property) -> None:
