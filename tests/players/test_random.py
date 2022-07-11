@@ -20,7 +20,7 @@ class TestRandomPlayer:
         return_false = False
 
         # Para testar a escolha que é aleatória, eu procuro uma ocorrencia true uma false da verificação
-        for i in range(0, 10):
+        for i in range(0, 20):
             result = player.rule_to_buy(property)
 
             if result is True:
@@ -37,20 +37,20 @@ class TestRandomPlayer:
         """
         Verificando a regra de compra do jogador cauteloso
 
-        Regra: O jogador exigente compra qualquer propriedade, desde que o valor do aluguel dela seja maior do que 50.
+        Regra: O jogador aleatório compra a propriedade que ele parar em cima com probabilidade de 50%.
         """
 
         property = factor_property(price=100, rent=100)
         player = factor_random(balance=150)
 
         assert player.properties == []
-        all(player.buy(property) for i in range(0, 10))
+        all(player.buy(property) for i in range(0, 20))
         assert len(player.properties) == 1
         assert player.is_alive() is True
 
         # Sem saldo ele não pode comprar outra propriedade
         property = factor_property(price=160, rent=60)
-        all(player.buy(property) for i in range(0, 10))
+        all(player.buy(property) for i in range(0, 20))
         assert len(player.properties) == 1
 
         assert player.balance == 50
