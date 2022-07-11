@@ -1,7 +1,8 @@
+from abc import abstractmethod, ABCMeta
 from ..property.base import Property
 
 
-class BasePlayer(object):
+class BasePlayer(metaclass=ABCMeta):
     """
     Regras dos jogadores:
         * Jogadores só podem comprar propriedades caso ela não tenha dono e o jogador tenha o dinheiro da venda.
@@ -40,7 +41,18 @@ class BasePlayer(object):
         return property.available and property.price <= self.balance
 
     def buy(self, property: Property):
-
         self.balance -= property.price
         property.owner = self
         self.__loser = self.balance < 0
+
+    def pay_rent(self, property: Property):
+        self.balance -= property.rent
+        self.__loser = self.balance < 0
+
+    @abstractmethod
+    def rule_to_buy(self, property: Property) -> bool:
+        """
+        Regras para efetuar a compra de cada tipo de jogador
+        :return: Retorna true caso o jogador vá efetuar a compra do imóvel
+        """
+        raise NotImplementedError
