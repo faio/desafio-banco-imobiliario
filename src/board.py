@@ -37,6 +37,7 @@ class Board(object):
         self.players = list()
         self.properties = list()
         self.losers_players = list()
+        self.winner = None  # Quem venceu essa partida
 
     def roll_dice(self):
         return randint(1, 6)
@@ -138,9 +139,15 @@ class Board(object):
 
             # Quando tem apenas um jogador, o jogo encerra
             if len(self.players) == 1:
+                self.winner = self.players[0]
                 break
 
             for player in self.players:
                 self.walk(player)
                 self.pay_property(player)
                 self.remove_loser(player)
+
+        # Chegou na rodada final, portanto o vencedor será decidido por quem tem o maior saldo e como
+        # critério de desempate, a ordem de turno dos jogadores nesta partida
+        if current_round == MAX_ROUND and not self.winner:
+            self.players.sort(key=lambda p: (p.balance, -p.id), reverse=True)
