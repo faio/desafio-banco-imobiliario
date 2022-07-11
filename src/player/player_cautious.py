@@ -13,6 +13,8 @@ class PlayerCautious(BasePlayer):
         * Jogadores só podem comprar propriedades caso ela não tenha dono e o jogador tenha o dinheiro da venda.
     """
 
+    _strategy = 'cauteloso'
+
     def rule_to_buy(self, property: Property) -> bool:
         remmant = self.balance - property.price
         return remmant >= 80

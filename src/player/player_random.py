@@ -13,5 +13,7 @@ class PlayerRandom(BasePlayer):
         * Jogadores só podem comprar propriedades caso ela não tenha dono e o jogador tenha o dinheiro da venda.
     """
 
+    _strategy = 'aleatorio'
+
     def rule_to_buy(self, property: Property) -> bool:
         return random.choice([True, False])

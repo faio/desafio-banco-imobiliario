@@ -19,7 +19,7 @@ class BasePlayer(metaclass=ABCMeta):
         self._id = id  # Ordem da criação
 
     def __repr__(self) -> str:
-        return f'Player {self.id}, Balance: {self.balance}, position: {self.position}'
+        return f'{self._strategy.title()} - {self.id}, Balance: {self.balance}, position: {self.position}'
 
     def __eq__(self, o: object) -> bool:
         return self.id == o.id
@@ -85,4 +85,9 @@ class BasePlayer(metaclass=ABCMeta):
         Regras para efetuar a compra de cada tipo de jogador
         :return: Retorna true caso o jogador vá efetuar a compra do imóvel
         """
+        raise NotImplementedError
+
+    @abstractmethod
+    def _strategy(self) -> str:
+        """ Nome da estratégia que está sendo utilizada"""
         raise NotImplementedError

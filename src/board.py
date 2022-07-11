@@ -33,11 +33,14 @@ class Board(object):
             Esse jogador é declarado o vencedor.
     """
 
+    MAX_ROUND = 1000  # Quantidade máxima de partida
+
     def __init__(self):
         self.players = list()
         self.properties = list()
         self.losers_players = list()
         self.winner = None  # Quem venceu essa partida
+        self.current_round = 0
 
     def roll_dice(self):
         return randint(1, 6)
@@ -131,11 +134,10 @@ class Board(object):
         self.create_random_players()
         self.create_properties()
 
-        MAX_ROUND = 1000  # Quantidade máxima de partida
-        current_round = 0  # Round atual
+        self.current_round = 0  # Round atual
 
-        while current_round < MAX_ROUND and self.players:
-            current_round += 1
+        while self.current_round < self.MAX_ROUND and self.players:
+            self.current_round += 1
 
             # Quando tem apenas um jogador, o jogo encerra
             if len(self.players) == 1:
@@ -149,5 +151,5 @@ class Board(object):
 
         # Chegou na rodada final, portanto o vencedor será decidido por quem tem o maior saldo e como
         # critério de desempate, a ordem de turno dos jogadores nesta partida
-        if current_round == MAX_ROUND and not self.winner:
+        if self.current_round == self.MAX_ROUND and not self.winner:
             self.players.sort(key=lambda p: (p.balance, -p.id), reverse=True)
