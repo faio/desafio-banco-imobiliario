@@ -29,11 +29,11 @@ def start():
     counter_winners = Counter([w._strategy for w in winners])
     more_winners = counter_winners.most_common(1)[0]
 
-    print(f"Quantidade de simulações: ", QT_SIMULATION)
+    print(f"Quantidade de simulações: {QT_SIMULATION}")
     print(f"Partidas encerradas com timeout: {timeouts}")
     print(f"Quantidade de turnos em media: {round(rounds / board.MAX_ROUND)}")
     print(f"Quem mais venceu foi o: {more_winners[0].title()} com {more_winners[1]} vitórias")
-    print(f"Porcentagem de vitórias por comportamento dos jogadores:")
+    print("Porcentagem de vitórias por comportamento dos jogadores:")
 
     for key, value in counter_winners.most_common():
         print(f"\t{key.title()}: { (value / QT_SIMULATION) * 100 : .2f} %")
