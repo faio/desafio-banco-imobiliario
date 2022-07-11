@@ -9,6 +9,7 @@ class PlayerImpulsive(BasePlayer):
     Regra:
 
         * O jogador impulsivo compra qualquer propriedade sobre a qual ele parar.
+        * Jogadores só podem comprar propriedades caso ela não tenha dono e o jogador tenha o dinheiro da venda.
     """
 
     def rule_to_buy(self, property: Property) -> bool:

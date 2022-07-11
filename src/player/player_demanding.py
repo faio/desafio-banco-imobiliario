@@ -9,6 +9,7 @@ class PlayerDemanding(BasePlayer):
     Regra:
 
         * O jogador exigente compra qualquer propriedade, desde que o valor do aluguel dela seja maior do que 50.
+        * Jogadores só podem comprar propriedades caso ela não tenha dono e o jogador tenha o dinheiro da venda.
     """
 
     def rule_to_buy(self, property: Property) -> bool:

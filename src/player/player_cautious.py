@@ -10,6 +10,7 @@ class PlayerCautious(BasePlayer):
 
         * O jogador cauteloso compra qualquer propriedade desde que ele tenha uma reserva de 80
             saldo sobrando depois de realizada a compra.
+        * Jogadores só podem comprar propriedades caso ela não tenha dono e o jogador tenha o dinheiro da venda.
     """
 
     def rule_to_buy(self, property: Property) -> bool:

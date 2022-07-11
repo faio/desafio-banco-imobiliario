@@ -14,12 +14,12 @@ class Property(object):
 
     """
 
-    def __init__(self, price: int, rent: int) -> None:
+    def __init__(self, price: int, rent: int, position: int) -> None:
 
         self._price = price
         self._rent = rent
         self._owner = None
-        self.position = None
+        self._position = position
 
     @property
     def available(self) -> bool:
@@ -31,7 +31,15 @@ class Property(object):
 
     @price.setter
     def price(self, value: Any) -> Exception:
-        raise ValueError("Não se pode alterar o valor da propriedade")
+        raise ValueError("Não se pode alterar o preço da propriedade")
+
+    @property
+    def position(self) -> int:
+        return self._position
+
+    @position.setter
+    def position(self, value: Any) -> Exception:
+        raise ValueError("Não se pode alterar a posição da propriedade")
 
     @property
     def rent(self) -> int:
