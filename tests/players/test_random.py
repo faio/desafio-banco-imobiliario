@@ -33,29 +33,6 @@ class TestRandomPlayer:
 
         assert return_true is True and return_false is True
 
-    def test_buy(self):
-        """
-        Verificando a regra de compra do jogador cauteloso
-
-        Regra: O jogador aleatório compra a propriedade que ele parar em cima com probabilidade de 50%.
-        """
-
-        property = factor_property(price=100, rent=100)
-        player = factor_random(balance=150)
-
-        assert player.properties == []
-        all(player.buy(property) for i in range(0, 20))
-        assert len(player.properties) == 1
-        assert player.is_alive() is True
-
-        # Sem saldo ele não pode comprar outra propriedade
-        property = factor_property(price=160, rent=60)
-        all(player.buy(property) for i in range(0, 20))
-        assert len(player.properties) == 1
-
-        assert player.balance == 50
-        assert player.is_alive() is True
-
     def test_pay_rent(self):
         owner = factor_random(balance=0)
         property = factor_property(price=100, rent=100, owner=owner)

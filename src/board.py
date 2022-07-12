@@ -1,3 +1,4 @@
+from . import settings
 from .property.base import Property
 
 from random import (
@@ -33,8 +34,6 @@ class Board(object):
             Esse jogador é declarado o vencedor.
     """
 
-    MAX_ROUND = 1000  # Quantidade máxima de partida
-
     def __init__(self):
         self.players = list()
         self.properties = list()
@@ -64,7 +63,7 @@ class Board(object):
         while players_types:
             choice = random_choices(players_types)[0]
             player = choice(
-                balance=300,
+                balance=settings.INITIAL_BALANCE,
                 id=len(self.players) + 1
             )
 
@@ -76,14 +75,14 @@ class Board(object):
         Cria as 20 propriedades necessarias para o jogo
 
         OBS: como não foi informado o valor de compra e de aluguel de cada propriedade,
-        o mesmo é gerado de forma randonimaca com valores que começam em 50 até 300
+        o mesmo é gerado de forma randonimaca com valores que começam em 50 até 150
         """
 
         self.properties = []
 
-        for i in range(0, 20):
-            price = randint(50, 300)
-            rent = randint(50, 300)
+        for i in range(0, settings.PROPERTY_MAX_QTD):
+            price = randint(settings.PROPERTY_MIN_PRICE, settings.PROPERTY_MAX_PRICE)
+            rent = randint(settings.PROPERTY_MIN_RENT, settings.PROPERTY_MAX_RENT)
 
             self.properties.append(Property(
                 price=price,
@@ -93,6 +92,9 @@ class Board(object):
 
     def walk(self, player: BasePlayer):
         """ Faz o jogador andar no tabuleiro """
+
+        if not self.properties:
+            raise RuntimeError('Não foi criado as propriedades')
 
         walk = self.roll_dice()
         position = player.position + walk
@@ -136,7 +138,7 @@ class Board(object):
 
         self.current_round = 0  # Round atual
 
-        while self.current_round < self.MAX_ROUND and self.players:
+        while self.current_round < settings.MAX_ROUND and self.players:
             self.current_round += 1
 
             # Quando tem apenas um jogador, o jogo encerra
@@ -151,5 +153,6 @@ class Board(object):
 
         # Chegou na rodada final, portanto o vencedor será decidido por quem tem o maior saldo e como
         # critério de desempate, a ordem de turno dos jogadores nesta partida
-        if self.current_round == self.MAX_ROUND and not self.winner:
+        if self.current_round == settings.MAX_ROUND and not self.winner:
             self.players.sort(key=lambda p: (p.balance, -p.id), reverse=True)
+            self.winner = self.players[0]
