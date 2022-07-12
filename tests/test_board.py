@@ -3,7 +3,7 @@ import pytest
 from src import settings
 from src.board import Board
 from collections import Counter
-from players.factor import factor_impulsive
+from .players.factor import factor_impulsive
 
 
 def test_create_params():

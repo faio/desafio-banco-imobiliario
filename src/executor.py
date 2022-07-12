@@ -1,4 +1,5 @@
 from src.board import Board
+from src import settings
 from collections import Counter
 
 QT_SIMULATION = 300
@@ -16,7 +17,7 @@ def start():
     winners = list()
     for board in boards:
         # Quantas partidas terminam por time out (1000 rodadas);
-        if board.current_round == board.MAX_ROUND:
+        if board.current_round == settings.MAX_ROUND:
             timeouts += 1
 
         # Quantos turnos em média demora uma partida;
@@ -31,7 +32,7 @@ def start():
 
     print(f"Quantidade de simulações: {QT_SIMULATION}")
     print(f"Partidas encerradas com timeout: {timeouts}")
-    print(f"Quantidade de turnos em media: {round(rounds / board.MAX_ROUND)}")
+    print(f"Quantidade de turnos em media: {round(rounds / settings.MAX_ROUND)}")
     print(f"Quem mais venceu foi o: {more_winners[0].title()} com {more_winners[1]} vitórias")
     print("Porcentagem de vitórias por comportamento dos jogadores:")
 
